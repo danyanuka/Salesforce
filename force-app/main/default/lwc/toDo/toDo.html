@@ -1,3 +1,47 @@
 <template>
-  <h1>Hello LWC</h1>
+  <lightning-card title="Buisness To-Do's">
+    <form class="create-to-do-container slds-var-m-around_medium">
+      <h2>Create a new To-Do</h2>
+      <lightning-input
+        type="text"
+        label="Describe To-Do"
+        placeholder="Describe To-Do"
+        variant="label-hidden"
+        onchange={handleInputChange}
+        name="description"
+      ></lightning-input>
+      <lightning-input
+        type="date"
+        label="Due Date"
+        placeholder="Due Date"
+        variant="label-hidden"
+        onchange={handleInputChange}
+        name="dueDate"
+      ></lightning-input>
+      <lightning-button
+        type="button"
+        label="Create"
+        variant="brand"
+        onclick={handleCreateToDo}
+      ></lightning-button>
+    </form>
+
+    <ul class="slds-var-m-around_medium">
+      <template for:each={toDos} for:item="toDo">
+        <li class="list-item" key={toDo.Id}>
+          <p class="description">{toDo.Description__c}</p>
+          <div class="date-and-button">
+            <span>{toDo.Due_Date__c}</span>
+            <lightning-button
+              class="delete"
+              onclick={handleDelete}
+              label="x"
+              variant="destructive"
+              size="x-small"
+            ></lightning-button>
+          </div>
+        </li>
+      </template>
+    </ul>
+  </lightning-card>
 </template>

@@ -1,3 +1,25 @@
-h1 {
-  color: blue;
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(80, 124, 186, 0.764);
+  color: white;
+  font-weight: 500;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  padding: 5px 5px 5px 5px;
+}
+.description {
+  max-width: 250px;
+}
+
+.date-and-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-to-do-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

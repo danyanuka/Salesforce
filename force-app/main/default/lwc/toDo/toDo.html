@@ -25,7 +25,6 @@
         onclick={handleCreateToDo}
       ></lightning-button>
     </form>
-
     <ul class="slds-var-m-around_medium">
       <template for:each={toDos} for:item="toDo">
         <li class="list-item" key={toDo.Id}>
@@ -34,7 +33,7 @@
             <span>{toDo.Due_Date__c}</span>
             <lightning-button
               class="delete"
-              onclick={handleDelete}
+              onclick={handleDeleteToDo}
               label="x"
               variant="destructive"
               size="x-small"

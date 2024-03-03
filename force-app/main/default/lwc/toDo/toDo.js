@@ -1,13 +1,13 @@
 import { LightningElement, wire, track } from "lwc";
 import getToDos from "@salesforce/apex/ToDoController.getToDos";
 import createToDo from "@salesforce/apex/ToDoController.createToDo";
-// import deleteToDo from "@salesforce/apex/ToDoController.deleteToDo";
+import deleteToDo from "@salesforce/apex/ToDoController.deleteToDo";
 
 export default class ToDo extends LightningElement {
   @track description = "";
   @track dueDate = "";
 
-  toDos; //Declare class prop , (Wil holds all the To-Dos from DB)
+  @track toDos; //Declare class prop , (Wil holds all the To-Dos from DB)
   @wire(getToDos) //Fetches a response obj and passes down to wiredToDos
   wiredToDos({ error, data }) {
     if (data) {
@@ -34,14 +34,18 @@ export default class ToDo extends LightningElement {
       dueDate: this.dueDate
     })
       .then((result) => {
-        this.description = "";
-        this.dueDate = "";
+        this.template.querySelector("form").reset(); //Clear Fields
+        this.toDos = [...this.toDos, result]; //Update UI (Result holds the newly created instance returned from Apex)
         console.log("ToDo created successfully:", result);
       })
       .catch((error) => {
         // Handle error
         console.error("Error creating ToDo:", error);
       });
+  }
+
+  handleDeleteToDo() {
+    deleteToDo();
   }
 
   // When component mounts

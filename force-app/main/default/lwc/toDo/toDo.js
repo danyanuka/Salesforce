@@ -44,8 +44,16 @@ export default class ToDo extends LightningElement {
       });
   }
 
-  handleDeleteToDo() {
-    deleteToDo();
+  handleDeleteToDo(ev) {
+    let todoId = ev.target.dataset.id;
+    deleteToDo({ todoId: todoId })
+      .then((result) => {
+        this.toDos = this.toDos.filter((toDo) => toDo.Id !== todoId); //Update UI
+        console.log("ToDo removed successfully:", result);
+      })
+      .catch((error) => {
+        console.log("Error removing toDo:", error);
+      });
   }
 
   // When component mounts

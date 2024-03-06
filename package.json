@@ -37,5 +37,8 @@
     "**/{aura,lwc}/**/*.js": [
       "eslint"
     ]
+  },
+  "dependencies": {
+    "@oclif/core": "^3.23.0"
   }
 }

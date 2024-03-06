@@ -24,7 +24,6 @@ export default class ToDo extends LightningElement {
     const fieldValue = event.target.value;
     // Update the component's state based on the input field
     this[fieldName] = fieldValue;
-    console.log(this.description, this.dueDate);
   }
 
   handleCreateToDo(ev) {

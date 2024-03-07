@@ -1,42 +1,56 @@
-import { LightningElement, wire, api } from "lwc";
-import { getRecord } from "lightning/uiRecordApi";
-import CaseNumber from "@salesforce/schema/Case.CaseNumber"; // Represents the Case object
+import { LightningElement, wire, api, track } from "lwc";
+import { getRecord, recordUpdated } from "lightning/uiRecordApi";
+// import CASE_OBJ from "@salesforce/schema/Case"; // Represents the Case object
+
+const FIELDS = [
+  "Case.CaseNumber",
+  "Case.SuppliedEmail",
+  "Case.ContactId",
+  "Case.OwnerId",
+  "Case.Priority",
+  "Case.Subject",
+  "Case.Description"
+];
 
 export default class CaseActivityLog extends LightningElement {
-  @api recordId;
-  caseData; // Holds the current record Id (@api for var to be public)
+  @api recordId; // Holds the current record Id (@api for var to be public)
+  // @track caseData;
+  @track activityLog = [];
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [CaseNumber]
+    fields: FIELDS
   })
-  caseObjectData({ data, error }) {
+  wiredRecordData({ data, error }) {
     if (data) {
-      this.caseData = data.fields;
-      console.log(data);
-    } else {
-      console.log(error);
+      // this.caseData = data.fields;
+      console.log("data : ", data);
+    } else if (error) {
+      console.error("Error:", error);
     }
   }
 
-  // handleCaseChange() {
-  //   if (this.caseData.data) {
-  //     // Logic to handle Case record data changes
-  //     console.log("Case record data:", this.caseData.data);
-  //   } else if (this.caseData.error) {
-  //     // Handle error fetching Case record data
-  //     console.error("Error fetching Case record data:", this.caseData.error);
-  //   }
-  // }
-  // renderedCallback() {
-  //   if (this.caseData.data) {
-  //     console.log("Case record data:", this.caseData.data);
-  //   } else if (this.caseData.error) {
-  //     console.error("Error fetching Case record data:", this.caseData.error);
-  //   }
-  // }
-
   connectedCallback() {
-    console.log("Helloyaas");
+    // Register record updated event listener on component initialization, filtering for **Case object**
+    recordUpdated.addEventListener("case", this.handleRecordUpdated);
+  }
+
+  disconnectedCallback() {
+    // Remove event listener on component cleanup
+    recordUpdated.removeEventListener("case", this.handleRecordUpdated);
+  }
+  handleRecordUpdated(event) {
+    console.log(event);
+    // const changedFields = event.detail.changedFields;
+    // const newLogEntry = {
+    //   timestamp: new Date(),
+    //   changedBy: changedFields.OwnerId.displayValue,
+    //   changes: Object.keys(changedFields).map((field) => ({
+    //     field: field,
+    //     from: changedFields[field].previousValue,
+    //     to: changedFields[field].currentValue
+    //   }))
+    // };
+    // this.activityLogs.push(newLogEntry);
   }
 }

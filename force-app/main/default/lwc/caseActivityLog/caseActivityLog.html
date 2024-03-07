@@ -1,26 +1,28 @@
 <template>
-  <lightning-card title="Case activity log">
-    <template lwc:if={caseData}>
-      <div>Number: - {caseData.CaseNumber.value}</div>
-    </template>
-    <lightning-record-edit-form record-id={recordId} object-api-name="Case">
-      <lightning-output-field field-name="SuppliedEmail">
-      </lightning-output-field>
-    </lightning-record-edit-form>
-    <!-- <ul class="slds-var-m-around_medium">
-      <li>
-        <p></p>
-        <div>
-          <span></span>
-          <lightning-button
-            label=""
-            variant="destructive"
-            size="x-small"
-          ></lightning-button>
-        </div>
-      </li>
-    </ul>-->
-
-    <!-- <p>{recordId}</p> -->
+  <lightning-card title="Case Activities log">
+    <div class="scroll">
+      <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+          <tr>
+            <th scope="col">Field</th>
+            <th scope="col">Old Value</th>
+            <th scope="col">New Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template
+            if:true={activityLog}
+            for:each={activityLog}
+            for:item="activity"
+          >
+            <tr key={activity.Id}>
+              <td>{activity.Field}</td>
+              <td>{activity.OldValue}</td>
+              <td>{activity.NewValue}</td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
   </lightning-card>
 </template>

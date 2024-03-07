@@ -1,3 +1,5 @@
-p {
-  color: pink;
+.scroll {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-width: 100%;
 }

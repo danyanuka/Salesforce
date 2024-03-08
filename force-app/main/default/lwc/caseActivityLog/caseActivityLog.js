@@ -3,10 +3,9 @@ import getCaseActivityLog from "@salesforce/apex/CaseHistoryController.getCaseAc
 import { registerRefreshHandler } from "lightning/refresh";
 
 export default class CaseActivityLog extends LightningElement {
-  @api recordId; // Holds the current record Id (@api for var to be public)
-  // @track caseData;
-  @track activityLog;
-  refreshHandlerId;
+  @api recordId; // Holds the current record Id dynamically
+  @track activityLog; //List of Case activities
+  refreshHandlerId; // in case there are many handlers
 
   // @wire(getCaseActivityLog, { caseId: "$recordId" })
   // wiredActivityLog({ data, error }) {
@@ -18,7 +17,7 @@ export default class CaseActivityLog extends LightningElement {
   // }
 
   connectedCallback() {
-    this.refreshHandlerId = registerRefreshHandler(this, this.refreshHandler);
+    this.refreshHandlerId = registerRefreshHandler(this, this.refreshHandler); //Handles record page refresh and refreshes lwc comp
     this.fetchCaseActivities();
   }
   refreshHandler() {
@@ -26,17 +25,17 @@ export default class CaseActivityLog extends LightningElement {
     return new Promise((resolve) => {
       this.fetchCaseActivities();
       resolve(true);
-    });
+    }); // has to return a promise
   }
-  fetchCaseActivities() {
-    getCaseActivityLog({ caseId: this.recordId })
-      .then((response) => {
-        console.log(response);
-        this.activityLog = response;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  async fetchCaseActivities() {
+    try {
+      const response = await getCaseActivityLog({ caseId: this.recordId });
+      console.log(response);
+      this.activityLog = response;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }
 

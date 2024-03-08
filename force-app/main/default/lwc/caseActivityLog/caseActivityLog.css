@@ -3,3 +3,7 @@
   overflow-y: auto;
   max-width: 100%;
 }
+.custom-table tbody tr td {
+  white-space: normal !important;
+  word-wrap: break-word;
+}

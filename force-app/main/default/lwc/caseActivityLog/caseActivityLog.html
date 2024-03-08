@@ -1,12 +1,20 @@
 <template>
   <lightning-card title="Case Activities log">
     <div class="scroll">
-      <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+      <table
+        class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout custom-table"
+      >
         <thead>
           <tr>
-            <th scope="col">Field</th>
-            <th scope="col">Old Value</th>
-            <th scope="col">New Value</th>
+            <th scope="col">
+              <div class="slds-truncate">Field</div>
+            </th>
+            <th scope="col">
+              <div class="slds-truncate">Old Value</div>
+            </th>
+            <th scope="col">
+              <div class="slds-truncate">New Value</div>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -16,9 +24,15 @@
             for:item="activity"
           >
             <tr key={activity.Id}>
-              <td>{activity.Field}</td>
-              <td>{activity.OldValue}</td>
-              <td>{activity.NewValue}</td>
+              <td>
+                <div class="slds-wrap">{activity.Field}</div>
+              </td>
+              <td>
+                <div class="slds-wrap">{activity.OldValue}</div>
+              </td>
+              <td>
+                <div class="slds-wrap">{activity.NewValue}</div>
+              </td>
             </tr>
           </template>
         </tbody>

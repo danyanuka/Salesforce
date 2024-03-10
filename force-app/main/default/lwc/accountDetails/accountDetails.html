@@ -1,15 +1,47 @@
 <template>
   <lightning-card title="Account Info">
-    <div class="slds-grid slds-wrap">
-      <div class="slds-card slds-has-bottom-magnet">
-        <div class="slds-p-around_medium">Account Name: {accountRecord}</div>
+    <template if:true={accountRecord}>
+      <div class="slds-grid slds-wrap slds-var-m-around_medium">
+        <div class="slds-col slds-size_1-of-3">
+          <div class="slds-p-bottom_small">Account Phone -</div>
+          <span>{accountRecord.Phone.value}</span>
+          <lightning-input
+            type="number"
+            label="Phone"
+            placeholder="Account Phone"
+            variant="label-hidden"
+            onchange={handleChange}
+            name="Phone"
+          >
+          </lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+          <div class="slds-p-bottom_small">Account Type -</div>
+          <span>{accountRecord.Type.value}</span>
+          <lightning-input
+            type="text"
+            label="Type"
+            placeholder="Account Type"
+            variant="label-hidden"
+            onchange={handleChange}
+            name="Type"
+          >
+          </lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+          <div class="slds-p-bottom_small">Account Desc -</div>
+          <span>{accountRecord.Description.value}</span>
+          <lightning-input
+            type="text"
+            label="Description"
+            placeholder="Account Description"
+            variant="label-hidden"
+            onchange={handleChange}
+            name="Description"
+          >
+          </lightning-input>
+        </div>
       </div>
-      <div class="slds-card slds-has-top-magnet">
-        <div class="slds-p-around_medium">Account Name: {accountRecord}</div>
-      </div>
-      <div class="slds-card slds-has-top-magnet">
-        <div class="slds-p-around_medium">Account Name: {accountRecord}</div>
-      </div>
-    </div>
+    </template>
   </lightning-card>
 </template>

@@ -20,6 +20,7 @@ export default class CaseActivityLog extends LightningElement {
     this.refreshHandlerId = registerRefreshHandler(this, this.refreshHandler); //Handles record page refresh and refreshes lwc comp
     this.fetchCaseActivities();
   }
+  //Must return a promise
   refreshHandler() {
     console.log("Change");
     return new Promise((resolve) => {

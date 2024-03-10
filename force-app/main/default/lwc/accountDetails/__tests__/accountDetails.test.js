@@ -1,4 +1,4 @@
-import { createElement } from "lwc";
+import { createElement } from "@lwc/engine-dom";
 import AccountDetails from "c/accountDetails";
 
 describe("c-account-details", () => {

@@ -1,6 +1,7 @@
 import { LightningElement, api, wire } from "lwc";
 import getUnassociatedContact from "@salesforce/apex/ContactController.getUnassociatedContact";
 import updateContactAccountId from "@salesforce/apex/ContactController.updateContactAccountId";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 //Account Related
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
@@ -64,8 +65,9 @@ export default class AccountRecordComponent extends LightningElement {
           contactId: this.selectedContactId,
           accountId: this.recordId
         });
-        console.log("Contact associated successfully.");
+
         this.selectedContactId = null;
+        this.showSuccessToast();
       } catch (error) {
         // Handle error
         console.error("Error associating contact:", error);
@@ -76,7 +78,14 @@ export default class AccountRecordComponent extends LightningElement {
     }
   }
 
-  connectedCallback() {}
+  showSuccessToast() {
+    const event = new ShowToastEvent({
+      title: "Success",
+      message: "Contact associated to Account successfully",
+      variant: "success"
+    });
+    this.dispatchEvent(event);
+  }
 
   //@wire(getRecord, {
   //   recordId: "$recordId",

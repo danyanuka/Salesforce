@@ -3,9 +3,9 @@ import getCaseActivityLog from "@salesforce/apex/CaseHistoryController.getCaseAc
 import { registerRefreshHandler } from "lightning/refresh";
 
 export default class CaseActivityLog extends LightningElement {
-  @api recordId; // Holds the current record Id dynamically
+  @api recordId;
   @track activityLog; //List of Case activities
-  refreshHandlerId; // in case there are many handlers
+  refreshHandlerId; // in case there are many handlers the id will be important
 
   connectedCallback() {
     this.refreshHandlerId = registerRefreshHandler(this, this.refreshHandler); //Identifies record page refresh and triggers LWC componenet refresh, takes context and a funtion as params

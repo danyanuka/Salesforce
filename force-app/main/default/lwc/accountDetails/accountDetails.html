@@ -33,13 +33,6 @@
                 <td data-label="Contact Email">{contact.Email}</td>
                 <td data-label="Contact Phone">{contact.Phone}</td>
                 <td class="slds-cell-shrink">
-                  <!-- <lightning-radio-group
-                    label="Radio"
-                    options={options}
-                    onchange={handleContactSelection}
-                    type="radio"
-                  >
-                  </lightning-radio-group> -->
                   <lightning-input
                     type="checkbox"
                     name="contactSelection"
@@ -65,47 +58,3 @@
     </div>
   </lightning-card>
 </template>
-
-<!-- <template>
-  <lightning-card title="Account Info">
-    <template if:true={accountRecord}>
-      <div class="slds-grid slds-wrap slds-var-m-around_medium">
-        <div class="slds-col slds-size_1-of-3">
-          <div class="slds-p-bottom_small">Account Phone -</div>
-          <span>{accountRecord.Phone.value}</span>
-          <lightning-input
-            type="number"
-            label="Phone"
-            placeholder="Account Phone"
-            variant="label-hidden"
-            onchange={handleChange}
-            name="Phone"
-          >
-          </lightning-input>
-        </div>
-        <div class="slds-col slds-size_1-of-3">
-          <div class="slds-p-bottom_small">Account Type -</div>
-          <span>{accountRecord.Type.value}</span>
-          <select>
-            <template for:each={accTypeOptions} for:item="option">
-              <option key={option} value={option}>{option}</option>
-            </template>
-          </select>
-        </div>
-        <div class="slds-col slds-size_1-of-3">
-          <div class="slds-p-bottom_small">Account Desc -</div>
-          <span>{accountRecord.Description.value}</span>
-          <lightning-input
-            type="text"
-            label="Description"
-            placeholder="Account Description"
-            variant="label-hidden"
-            onchange={handleChange}
-            name="Description"
-          >
-          </lightning-input>
-        </div>
-      </div>
-    </template>
-  </lightning-card>
-</template> -->

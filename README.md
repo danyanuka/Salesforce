@@ -1,22 +1,22 @@
-# Salesforce Home Task README
+# Salesforce Home Task
 
 ## Introduction
 
-This repository contains the solutions for the Salesforce home task assigned during the interview process. The task consists of two Lightning Web Components (LWC) components developed for Salesforce.
+This repository contains the solutions for a Salesforce assignment. The solution consists two Lightning Web Components (LWC) and a few custom Apex classes that works with the components.
 
 ## Components
 
-### 1. Component 1 Name
+### 1. caseActivityLog
 
-- **Description:** Brief description of the first LWC component.
-- **Purpose:** Describe the purpose or functionality of this component.
-- **Usage:** Instructions on how to use or deploy this component.
+- **Description:** A Custom LWC component that renders a list of every change that has been occurred on a specific Case
+- **Purpose:** Tracking changed made to a Case.
+- **Usage:** Navigate to the Case List view, Select a Case and open its record page, there you will see the Activity Log componenet. modify the Case from somewhere in that page (Details standard Comp) and it will automatically Refresh the list and show the updated list of activities, when the list grows, max size hits and the component becomes scrollable.
 
-### 2. Component 2 Name
+### 2. accountDetails
 
-- **Description:** Brief description of the second LWC component.
-- **Purpose:** Describe the purpose or functionality of this component.
-- **Usage:** Instructions on how to use or deploy this component.
+- **Description:** Another custom LWC component that lets you quickly edit Account fields and associate a contact with the account by checking one of the contacts in the table. the table shows only unassociated contact.
+- **Usage:** Navigate to the Account list view, Select an Account out of the list and open its record page, the componenet will appear there, you can modify the fields according to your needs and also mark a contact from the table in that same component that you would like to associate with that account, after submitting you will get a sucess messege indicating that changed has been occured.
+- Test- to ensure the contact was indeed associated with that account you can either refresh the page and see that the contact is not appearing in the unassociated contacts table which means it indeed got associated, or execute this SQQL query using the query editor in the developer console inside salesforce: (SELECT Name FROM Contact WHERE AccountId = 'someID') . replace the someId with the actual account Id you wanted the contact to be associated to (easiest way in my opinion is copy and paste the ID from the URL of the Account record page).
 
 ## Installation
 
@@ -24,18 +24,6 @@ This repository contains the solutions for the Salesforce home task assigned dur
 2. Deploy the Salesforce components to your Salesforce environment using the Salesforce CLI or Salesforce Extension for Visual Studio Code.
 3. Navigate to the appropriate Salesforce page to view or interact with the components.
 
-## Usage
-
-Provide detailed instructions on how to use each component, including any input parameters, expected behavior, and expected outcomes.
-
-## Notes
-
-Include any additional notes or considerations for reviewers, such as dependencies, limitations, or special configurations required.
-
 ## Author
 
-[Your Name]
-
-## Contact
-
-For any questions or inquiries regarding this project, please contact [Your Email Address].
+Dan Yanuka

@@ -12,18 +12,9 @@ import ACCOUNT_DESCRIPTION_FIELD from "@salesforce/schema/Account.Description";
 import CONTACT_OBJECT from "@salesforce/schema/Contact";
 
 export default class AccountRecordComponent extends LightningElement {
-  @api recordId; // Current Account record Id passed from Lightning Record Page dynamically
-  // @api objectApiName;
+  @api recordId;
   unassociatedContacts;
   selectedContactId;
-
-  //getter function for creating the Options of the radio button
-  get options() {
-    return this.unassociatedContacts.map((contact) => ({
-      label: contact.Name,
-      value: contact.Id
-    }));
-  }
 
   accountApiName = ACCOUNT_OBJECT;
   contactApiName = CONTACT_OBJECT;
@@ -32,6 +23,7 @@ export default class AccountRecordComponent extends LightningElement {
   typeField = ACCOUNT_TYPE_FIELD;
   descriptionField = ACCOUNT_DESCRIPTION_FIELD;
 
+  //Fetches a list of Unassociated contacts using custom Apex method
   @wire(getUnassociatedContact)
   wiredUnassociatedContacts({ error, data }) {
     if (data) {
@@ -42,6 +34,7 @@ export default class AccountRecordComponent extends LightningElement {
     }
   }
 
+  //Stores the selected contact / Disables multiple Checks
   handleContactSelection(ev) {
     this.selectedContactId = ev.target.dataset.value;
     // Disable the option for multiple checks
@@ -56,15 +49,16 @@ export default class AccountRecordComponent extends LightningElement {
     checkbox.checked = true;
   }
 
+  // Handles association of contact to an account using the the Custom apex method to update contact accountId
   async handleContactAssociation() {
     //listening to sucess event to trigger the Success Toast
     this.template
       .querySelector("lightning-record-edit-form")
       .addEventListener("success", this.showSuccessToast);
-    // Check if a contact is selected/ if not, account will still be updated if fields changed
+    // Check if a contact is selected/ if not, account fields will still be updated if changed
     if (this.selectedContactId) {
       try {
-        //Custom apex method
+        //Custom Apex method
         await updateContactAccountId({
           contactId: this.selectedContactId,
           accountId: this.recordId

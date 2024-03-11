@@ -1,5 +1,5 @@
 <template>
-  <lightning-card title="Account Info">
+  <lightning-card title="Edit Account Info">
     <div class="record-form-container">
       <lightning-record-edit-form
         object-api-name={accountApiName}
@@ -11,13 +11,19 @@
         <lightning-input-field field-name={descriptionField}>
         </lightning-input-field>
 
-        <table class="slds-table slds-table_bordered">
+        <h3
+          class="slds-text-heading_small slds-m-bottom_medium slds-text-title_bold"
+        >
+          Associate a contact with that Account
+        </h3>
+
+        <table class="slds-table slds-table_bordered slds-table_fixed-layout">
           <thead>
             <tr class="slds-text-title_caps">
               <th scope="col">Contact Name</th>
-              <th scope="col">Contact Email</th>
-              <th scope="col">Contact Phone</th>
-              <th scope="col">
+              <th scope="col">Email</th>
+              <th scope="col">Mobile</th>
+              <th class="slds-cell-shrink slds-text-align_right" scope="col">
                 <lightning-icon
                   icon-name="utility:check"
                   size="small"
@@ -29,10 +35,16 @@
           <tbody>
             <template for:each={unassociatedContacts} for:item="contact">
               <tr key={contact.Id} class="slds-hint-parent">
-                <td data-label="Contact Name">{contact.Name}</td>
-                <td data-label="Contact Email">{contact.Email}</td>
-                <td data-label="Contact Phone">{contact.Phone}</td>
-                <td class="slds-cell-shrink">
+                <td class="slds-truncate" data-label="Contact Name">
+                  {contact.Name}
+                </td>
+                <td class="slds-truncate" data-label="Contact Email">
+                  {contact.Email}
+                </td>
+                <td class="slds-truncate" data-label="Contact Phone">
+                  {contact.MobilePhone}
+                </td>
+                <td class="slds-cell-shrink slds-text-align_right">
                   <lightning-input
                     type="checkbox"
                     name="contactSelection"

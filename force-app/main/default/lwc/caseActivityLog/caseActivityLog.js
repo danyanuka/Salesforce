@@ -14,13 +14,13 @@ export default class CaseActivityLog extends LightningElement {
 
   //Must return a promise
   refreshHandler() {
-    console.log("Change");
     return new Promise((resolve) => {
       this.fetchCaseActivities();
       resolve(true);
     });
   }
 
+  //This function fetched caseHistory items using an apex method
   async fetchCaseActivities() {
     try {
       const response = await getCaseActivityLog({ caseId: this.recordId });

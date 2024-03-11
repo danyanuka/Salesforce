@@ -33,10 +33,17 @@
                 <td data-label="Contact Email">{contact.Email}</td>
                 <td data-label="Contact Phone">{contact.Phone}</td>
                 <td class="slds-cell-shrink">
+                  <!-- <lightning-radio-group
+                    label="Radio"
+                    options={options}
+                    onchange={handleContactSelection}
+                    type="radio"
+                  >
+                  </lightning-radio-group> -->
                   <lightning-input
                     type="checkbox"
                     name="contactSelection"
-                    data-contact-id={contact.Id}
+                    data-value={contact.Id}
                     onchange={handleContactSelection}
                   >
                   </lightning-input>

@@ -1,5 +1,6 @@
 import { LightningElement, api, wire } from "lwc";
 import getUnassociatedContact from "@salesforce/apex/ContactController.getUnassociatedContact";
+import updateContactAccountId from "@salesforce/apex/ContactController.updateContactAccountId";
 
 //Account Related
 import ACCOUNT_OBJECT from "@salesforce/schema/Account";
@@ -13,6 +14,15 @@ export default class AccountRecordComponent extends LightningElement {
   @api recordId; // Current Account record Id passed from Lightning Record Page dynamically
   // @api objectApiName;
   unassociatedContacts;
+  selectedContactId;
+
+  //getter function for creating the Options of the radio button
+  get options() {
+    return this.unassociatedContacts.map((contact) => ({
+      label: contact.Name,
+      value: contact.Id
+    }));
+  }
 
   accountApiName = ACCOUNT_OBJECT;
   contactApiName = CONTACT_OBJECT;
@@ -31,24 +41,41 @@ export default class AccountRecordComponent extends LightningElement {
     }
   }
 
-  // @wire(getRecords, {
-  //   objectApiName: CONTACT_OBJECT,
-  //   fields: CONTACT_FIELDS,
-  //   filter: { AccountId: null },
-  //   sortBy: CONTACT_NAME_FIELD,
-  //   pageSize: 10
-  // })
-  // wiredContacts({ error, data }) {
-  //   if (data) {
-  //     console.log(data);
-  //   } else if (error) {
-  //     console.log("Error :", error);
-  //   }
-  // }
-
-  handleContactAssociation() {
-    console.log("hey");
+  handleContactSelection(ev) {
+    this.selectedContactId = ev.target.dataset.value;
+    // Disable the option for multiple checks
+    Array.from(this.template.querySelectorAll("lightning-input")).forEach(
+      (element) => {
+        element.checked = false;
+      }
+    );
+    const checkbox = this.template.querySelector(
+      'lightning-input[data-value="' + ev.target.dataset.value + '"]'
+    );
+    checkbox.checked = true;
   }
+
+  async handleContactAssociation() {
+    // Check if a contact is selected
+    if (this.selectedContactId) {
+      try {
+        //Custom apex method
+        await updateContactAccountId({
+          contactId: this.selectedContactId,
+          accountId: this.recordId
+        });
+        console.log("Contact associated successfully.");
+        this.selectedContactId = null;
+      } catch (error) {
+        // Handle error
+        console.error("Error associating contact:", error);
+      }
+    } else {
+      // Handle case when no contact is selected
+      console.log("No contact selected.");
+    }
+  }
+
   connectedCallback() {}
 
   //@wire(getRecord, {
